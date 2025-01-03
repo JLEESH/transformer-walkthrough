@@ -3,17 +3,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch import Tensor
 from jaxtyping import Float
-import wandb
+#import wandb
 import einops
 
 
 class Transformer(nn.Module):
-    """transformer model"""
-
     def __init__(self, input_dim=10, hidden_dim=128, n_heads=8):
         super().__init__()
 
-        # self.input_mlp = nn.Linear(input_dim, hidden_dim)
         self.attention = Attention(hidden_dim, n_heads=n_heads)
         self.norm1 = nn.LayerNorm(hidden_dim)
         self.output_mlp = nn.Linear(hidden_dim, hidden_dim)
@@ -31,8 +28,6 @@ class Transformer(nn.Module):
 
 
 class Attention(nn.Module):
-    """attention module"""
-
     def __init__(self, hidden_dim=128, n_heads=8):
         super().__init__()
 
@@ -83,7 +78,6 @@ class Attention(nn.Module):
 
 
 if __name__ == "__main__":
-    # mlp -> attention * N -> mlp ->
     TestAttention = False
     if TestAttention:
         attn = Attention(64, 8)
@@ -101,5 +95,3 @@ if __name__ == "__main__":
         transformer = Transformer(seq_len, n_dim, n_heads=8)
         out = transformer(x)
         print(out.shape)
-
-# write unit tests for the model!
